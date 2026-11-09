@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>뇌 맵핑 지도</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+--bg:#f7f6f2;--card:#fff;--tx:#1f2328;--mu:#6b7280;--bd:#e2e0d8;--ac:#d9902f;--acbg:#fdf1de;--reg:#e9c98f;--regh:#d9902f}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#17181a;--card:#222427;--tx:#ececec;--mu:#9aa0a6;--bd:#34373b;--ac:#e8a54a;--acbg:#3a2e1c;--reg:#6d5a3a;--regh:#e8a54a}}
+:root[data-theme="dark"]{--bg:#17181a;--card:#222427;--tx:#ececec;--mu:#9aa0a6;--bd:#34373b;--ac:#e8a54a;--acbg:#3a2e1c;--reg:#6d5a3a;--regh:#e8a54a}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:-apple-system,"Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",sans-serif;line-height:1.6}
+.wrap{max-width:960px;margin:0 auto;padding:16px}
+h1{font-size:24px;margin:8px 0 2px}
+.sub{color:var(--mu);margin:0 0 14px;font-size:14px}
+.search{width:100%;padding:12px 14px;border:1px solid var(--bd);border-radius:12px;background:var(--card);color:var(--tx);font-size:16px}
+.results{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
+.chip{border:1px solid var(--bd);background:var(--card);color:var(--tx);border-radius:999px;padding:6px 12px;font-size:14px;cursor:pointer}
+.chip.on{background:var(--ac);color:#fff;border-color:var(--ac)}
+.grid{display:grid;grid-template-columns:1fr;gap:14px}
+@media(min-width:800px){.grid{grid-template-columns:1.2fr 1fr}}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:14px}
+svg{width:100%;height:auto;display:block}
+.r{fill:var(--reg);stroke:var(--card);stroke-width:4;cursor:pointer;transition:fill .15s}
+.r:hover,.r.on{fill:var(--regh)}
+.r.dim{opacity:.25}
+.lbl{font-size:15px;fill:var(--tx);pointer-events:none;font-weight:600;text-anchor:middle}
+.tip{font-size:13px;color:var(--mu);text-align:center;margin:6px 0 0}
+h2{margin:0 0 2px;font-size:20px}
+.en{color:var(--mu);font-size:13px;margin-bottom:10px}
+.sec{margin:12px 0}
+.sec b{display:block;font-size:13px;color:var(--ac);margin-bottom:2px}
+.sec p{margin:0;white-space:pre-wrap}
+.empty{color:var(--mu);font-style:italic}
+a{color:var(--ac);word-break:break-all}
+.btn{background:var(--ac);color:#fff;border:0;border-radius:10px;padding:9px 14px;font-size:14px;cursor:pointer}
+.btn.g{background:transparent;color:var(--tx);border:1px solid var(--bd)}
+.row{display:flex;gap:8px;margin-top:12px}
+label{display:block;font-size:13px;color:var(--mu);margin:10px 0 3px}
+textarea,input.f{width:100%;padding:9px 10px;border:1px solid var(--bd);border-radius:10px;background:var(--bg);color:var(--tx);font:inherit;font-size:15px}
+textarea{min-height:64px;resize:vertical}
+.note{font-size:12px;color:var(--mu);margin-top:8px}
+.meta{font-size:12px;color:var(--mu);margin-top:10px}
+.top{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}.md h1{font-size:24px;margin:6px 0}.md h2{font-size:15px;color:var(--ac);margin:18px 0 4px}.md p,.md li{margin:4px 0}.md ul{padding-left:20px}.btnl{display:inline-block;text-decoration:none;background:var(--ac);color:#fff;border-radius:10px;padding:9px 14px;font-size:14px}.btnl.g{background:transparent;color:var(--tx);border:1px solid var(--bd)}</style>
+</head>
+<body>
+<div class="wrap">
+<h1>🧠 뇌 맵핑 지도</h1>
+<p class="sub">뇌의 부위를 누르면 설명 페이지로 이동해요.</p>
+<input id="q" class="search" placeholder="부위 검색 (예: 해마, 기억, 공포)" autocomplete="off">
+<div id="chips" class="results"></div>
+<div class="card">
+<div class="results" id="tg"><button class="chip" id="t2">2D</button><button class="chip on" id="t3">3D</button></div>
+<svg id="svg" viewBox="0 0 700 420" role="img" aria-label="뇌 옆면 지도" style="display:none"></svg>
+<div id="three"></div>
+<p class="tip"></p>
+</div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="js/regions.js"></script>
+<script src="js/brain.js"></script>
+<script src="js/brain3d.js"></script>
+</body>
+</html>
