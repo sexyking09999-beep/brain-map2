@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>뇌 지도</title>
+<link rel="stylesheet" href="css/site.css">
+</head>
+<body>
+<script src="js/config.js"></script>
+<script src="js/site.js"></script>
+<div class="wrap">
+<h1>🧠 뇌 맵핑 지도</h1>
+<p class="sub">뇌의 부위를 누르면 설명 페이지로 이동해요.</p>
+<input id="q" class="search" placeholder="부위 검색 (예: 해마, 기억, 공포)" autocomplete="off">
+<div id="chips" class="results"></div>
+<div class="card">
+<div class="results" id="tg"><button class="chip" id="t2">2D</button><button class="chip on" id="t3">3D</button></div>
+<svg id="svg" viewBox="0 0 700 420" role="img" aria-label="뇌 옆면 지도" style="display:none"></svg>
+<div id="three"></div>
+<p class="tip"></p>
+</div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="js/regions.js"></script>
+<script src="js/brain.js"></script>
+<script src="js/brain3d.js"></script>
+</body>
+</html>

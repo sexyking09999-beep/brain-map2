@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>동아리</title>
+<link rel="stylesheet" href="css/site.css">
+</head>
+<body>
+<script src="js/config.js"></script>
+<script src="js/site.js"></script>
+<div class="wrap">
+<div class="card md" id="box">불러오는 중…</div>
+<div class="row" id="act"></div>
+</div>
+<script>
+var p=(new URLSearchParams(location.search).get("p")||"about").replace(/[^a-z0-9_-]/gi,""),box=document.getElementById("box");
+fetch("content/"+p+".md").then(function(r){if(!r.ok)throw 0;return r.text()}).then(function(t){box.textContent="";box.appendChild(md(t));var h=box.querySelector("h1");if(h)document.title=h.textContent})
+ .catch(function(){box.textContent="페이지를 찾을 수 없어요."});
+document.getElementById("act").appendChild(editLink("content/"+p+".md"));
+</script>
+</body>
+</html>

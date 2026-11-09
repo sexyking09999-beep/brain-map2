@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>카드뉴스 아카이브</title>
+<link rel="stylesheet" href="css/site.css">
+</head>
+<body>
+<script src="js/config.js"></script>
+<script src="js/site.js"></script>
+<div class="wrap">
+<h1>📰 카드뉴스 아카이브</h1>
+<p class="sub">카드를 누르면 PDF·이미지가 열려요. 최신순으로 정렬돼요.</p>
+<input id="q" class="search" placeholder="제목이나 작성자 검색" autocomplete="off">
+<div class="cards" id="list" style="margin-top:14px"><p class="empty">불러오는 중…</p></div>
+<p class="note">올리는 방법: 저장소의 archive 폴더에 파일을 업로드하세요. 파일 이름은 <b>2026-11-09_제목_작성자.pdf</b> 형식이에요. (PDF, PNG, JPG 가능)</p>
+<div class="row"><a class="btnl g" id="up" target="_blank" rel="noopener">📤 카드뉴스 올리러 가기</a></div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script>
+document.getElementById("up").href="https://github.com/"+SITE.github+"/upload/"+SITE.branch+"/archive";
+var all=[],box=document.getElementById("list");
+function draw(){var q=document.getElementById("q").value.trim().toLowerCase();box.textContent="";
+  var v=all.filter(function(i){return !q||(i.title+i.author+i.date).toLowerCase().indexOf(q)>-1});
+  if(!v.length){box.appendChild(el("p","empty",all.length?"검색 결과가 없어요.":"아직 올라온 카드뉴스가 없어요."));return}
+  v.forEach(function(it){box.appendChild(archiveCard(it))})}
+document.getElementById("q").addEventListener("input",draw);
+listArchive().then(function(v){all=v;draw()}).catch(function(){box.textContent="";box.appendChild(el("p","empty","목록을 불러오지 못했어요. 저장소가 Public인지, 잠시 후 다시 시도해 보세요."))});
+</script>
+</body>
+</html>
